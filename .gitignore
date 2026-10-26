@@ -1,0 +1,27 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+
+# 环境
+.venv/
+.env
+.env.*
+!.env.example
+
+# 测试
+.pytest_cache/
+pytest-cache-files-*/
+.coverage
+htmlcov/
+
+# 运行产物
+data/*
+!data/.gitkeep
+reports/daily/*
+!reports/daily/.gitkeep
+reports/weekly/*
+!reports/weekly/.gitkeep
