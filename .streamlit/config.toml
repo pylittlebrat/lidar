@@ -1,0 +1,14 @@
+# Simulation Tech Radar — Streamlit 主题（与 style.css 的雷达工作台视觉一致）
+[theme]
+base = "dark"
+primaryColor = "#37e0c8"
+backgroundColor = "#080d12"
+secondaryBackgroundColor = "#0e161e"
+textColor = "#d5e2ec"
+font = "sans serif"
+
+[server]
+headless = true
+
+[browser]
+gatherUsageStats = false

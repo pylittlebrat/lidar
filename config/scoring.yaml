@@ -1,0 +1,46 @@
+# 相关性评分机制（方案第 16 节）
+# FinalScore = 0.25*KeywordScore + 0.25*SourceScore + 0.30*LLMRelevance + 0.20*NoveltyScore
+# 注意：这是"内部项目相关度"，不是评价技术本身"好不好"
+
+weights:
+  keyword_score: 0.25
+  source_score: 0.25
+  llm_relevance: 0.30
+  novelty_score: 0.20
+
+bands:
+  strong_focus: 90      # 强烈关注
+  focus: 75             # 重点关注
+  worth_reading: 60     # 值得阅读
+  general: 40           # 普通信息（低于此默认不进日报）
+
+novelty:
+  lookback_days: 90          # 与近 90 天历史比较
+  duplicate_threshold: 0.85  # 标题相似度 > 0.85 视为重复
+  novel_threshold: 0.65      # 与历史 embedding 相似度 < 0.65 视为新方向
+
+# 来源得分（RelevanceEvaluator 使用）
+source_weights:
+  github: 90
+  arxiv: 70
+  rss: 60
+  web: 50
+  default: 40
+
+# 关键词得分：命中优先级词数 -> 得分（0-100）
+keyword_bands:
+  0: 0
+  1: 40
+  2: 70
+  3: 100
+
+# 例行大型更新降权（价值排序：具体开源工作/论文 > 大型框架例行 release）
+# Isaac Lab / MuJoCo 等 watch 仓库的小版本更新"了解一下即可"，
+# 不占据雷达重点，避免挤掉论文与新开源工作。
+routine_update:
+  enabled: true
+  source_score_penalty: 50                   # watched 例行 release 的 source 分（100 -> 50）
+  title_similarity_against_history: 0.8      # 与同源历史标题相似度高于此视为例行更新
+  version_pattern: '\d+\.\d+'                # 标题含版本号特征
+  major_change_exempt: true                  # 主版本变化（如 v2 -> v3）视为重大发布，不判例行
+  milestone_markers: [EA, RC, Preview, "Early Access"]  # 含这些标记的发布不判例行

@@ -1,0 +1,14 @@
+# LLM 分析配置（Phase 4）
+# model / base_url / api_key 优先从环境变量读取：LLM_MODEL / LLM_BASE_URL / LLM_API_KEY
+# 本机示例（OpenCode Go）：
+#   LLM_API_KEY=oc_sk_xxx
+#   LLM_BASE_URL=https://opencode.ai/zen/go/v1
+#   LLM_MODEL=deepseek-v4-flash
+
+enabled: true
+temperature: 0.2
+max_tokens: 2500
+timeout_seconds: 90
+max_items_per_run: 20        # 每次 analyze 最多处理的条目
+llm_min_keyword_hits: 1      # 至少命中 N 个优先级词才调用 LLM（成本控制，方案第 31 节）
+split_abstract_chars: 4000   # 送入 LLM 的正文截断长度

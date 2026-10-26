@@ -1,0 +1,1 @@
+"""采集器包：BaseCollector 抽象基类（Phase 2 起加入 GitHub / arXiv / RSS / Web 实现）。"""

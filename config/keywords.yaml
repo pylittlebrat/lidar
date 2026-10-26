@@ -1,0 +1,75 @@
+# 关键词过滤配置（Phase 2 起被 KeywordFilter 使用）
+# 注意：所有业务关键词必须放在这里，不得 hardcode 到 Python
+
+priority_terms:
+  - simulation engine
+  - physics engine
+  - robot simulator
+  - real2sim
+  - sim2real
+  - domain randomization
+  - digital twin
+  - world model
+  - neural simulator
+  - simready
+  - urdf
+  - usd
+  - gaussian splatting
+  - scene reconstruction
+  - collision generation
+  - physics parameter estimation
+  - system identification
+  - system-id
+  - parameter estimation
+  - dynamics identification
+  - embodied ai
+  - embodied intelligence
+  - embodied simulation
+  - embodied agent
+  - robot foundation model
+  - reinforcement learning
+  - imitation learning
+  - robot learning
+  - isaac lab
+  - isaac sim
+  - omniverse
+  - physx
+  - replicator
+  - synthetic data
+  - mujoco
+  - newton physics
+  - genesis
+  - sapien
+  - maniskill
+  - gazebo
+  - habitat
+  - SIL
+  - HIL
+  - excavator
+  - forklift
+  - loader
+  - mining equipment
+
+# 命中即过滤：与仿真领域无关的通用噪音
+negative_terms:
+  - stock market
+  - cryptocurrency
+  - celebrity gossip
+  - football match
+  - covid update
+  - election results
+  - video game
+  - universe sandbox
+  - game download
+  - game crack
+  - torrent
+  - cheat codes
+  - free setup
+
+case_sensitive: false
+
+# 过滤策略（Phase 3 KeywordFilter 使用）
+filter:
+  min_priority_matches: 1      # 命中至少 1 个优先级关键词才保留
+  drop_negative: true          # 命中负向词则丢弃
+  watched_always_keep: true    # github watch 仓库的条目（metadata.watched=True）免关键词匹配

@@ -1,0 +1,91 @@
+# 技术分类体系（Taxonomy）
+# 所有内容统一映射到这套分类（10 个一级分类），Phase 2 起被 Classifier 使用
+
+categories:
+  simulation_engine:
+    - simulator
+    - simulation engine
+    - physics engine
+    - robot simulator
+    - isaac lab
+    - isaac sim
+    - omniverse
+    - physx
+    - usd
+    - mujoco
+    - gazebo
+    - genesis
+
+  robot_learning:
+    - reinforcement learning
+    - imitation learning
+    - robot learning
+    - policy learning
+    - rl
+
+  real2sim:
+    - real2sim
+    - real-to-sim
+    - scene reconstruction
+    - digital cousin
+    - digital twin
+    - physics parameter estimation
+    - system identification
+    - parameter estimation
+
+  sim2real:
+    - sim2real
+    - sim-to-real
+    - domain randomization
+    - system identification
+
+  embodied_ai:
+    - embodied ai
+    - embodied intelligence
+    - embodied simulation
+    - embodied agent
+    - robot foundation model
+
+  system_identification:
+    - system identification
+    - system-id
+    - parameter estimation
+    - dynamics identification
+    - contact parameter estimation
+    - model identification
+
+  asset_generation:
+    - simready
+    - sim-ready
+    - asset generation
+    - collision generation
+    - urdf generation
+    - usd generation
+
+  world_model:
+    - world model
+    - neural simulator
+    - video world model
+
+  humanoid:
+    - humanoid
+    - locomotion
+    - motion imitation
+
+  manipulation:
+    - manipulation
+    - dexterous
+    - grasping
+
+  engineering_machinery:
+    - excavator
+    - loader
+    - forklift
+    - mining
+    - construction equipment
+
+  simulation_validation:
+    - SIL
+    - HIL
+    - simulation validation
+    - benchmark

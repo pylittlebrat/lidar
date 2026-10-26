@@ -1,0 +1,144 @@
+# 信息源配置（Phase 1 仅作为数据文件；Phase 2 起被 collectors 消费）
+
+collections:
+  github:
+    enabled: true
+    priority: P0
+    # 模式 A：明确知道的重要仓库（Watch List）
+    # 每天检查 release / tag / push / readme 变化
+    watch_repositories:
+      - isaac-sim/IsaacLab
+      - isaac-sim/IsaacSim
+      - google-deepmind/mujoco
+      - google-deepmind/mujoco_mjx
+      - newton-physics/newton
+      - Genesis-Embodied-AI/Genesis
+      - haosulab/SAPIEN
+      - haosulab/ManiSkill
+      - open-robotics/gazebo
+      - ros2/ros2
+      - google-research/habitat-sim
+      - bulletphysics/bullet3
+      - NVIDIA/warp
+      - RobotLocomotion/drake
+      - rerun-io/rerun
+      - huggingface/lerobot
+      - Physical-Intelligence/openpi
+      - PixarAnimationStudios/OpenUSD
+    # 模式 B：关键词搜索（每天跑一次）
+    search_keywords:
+      - robot simulation
+      - robotics simulator
+      - physics simulator
+      - real2sim
+      - system identification robot
+      - physics parameter estimation
+      - sim2real
+      - digital twin
+      - robot learning
+      - embodied simulation
+      - embodied ai
+      - embodied intelligence
+      - gaussian splatting simulation
+      - urdf generator
+    # 模式 C：新仓库发现（近 30 天创建 + star 阈值 + 关键词匹配）
+    emerging_repo:
+      enabled: true
+      created_within_days: 30
+      min_stars: 50
+      keywords: [robot simulation, robotics simulator, digital twin, world model, real2sim, system identification, embodied ai]
+      per_page: 3
+    events: [release, tag, push, readme]
+    limits:
+      max_releases: 20            # 每次运行最多检查的 watch 仓库数
+      fetch_repo_meta: true       # 是否额外抓取 stars/forks（会增加请求数）
+      max_searches: 5             # 模式 B 每次运行最多搜索关键词数（未认证 10 req/min）
+      search_per_page: 5
+      search_sleep_seconds: 7
+      emerging_per_page: 3
+      request_timeout_seconds: 30
+
+  arxiv:
+    enabled: true
+    priority: P0
+    categories: [cs.RO, cs.AI, cs.CV, cs.LG]
+    # 顺序即优先级：max_queries 只跑前若干个关键词，重点方向前置
+    search_keywords:
+      - robot simulation
+      - real2sim
+      - system identification robot
+      - physics simulator
+      - sim2real
+      - physics parameter estimation
+      - embodied intelligence
+      - embodied ai
+      - digital twin
+      - world model
+      - gaussian splatting
+      - dexterous manipulation
+      - humanoid locomotion
+    limits:
+      max_queries: 5              # 每次运行最多查询的关键词数
+      max_results: 15             # 每个关键词返回条数
+      sleep_seconds: 3            # 请求间隔（对 arXiv 保持礼貌）
+      request_timeout_seconds: 30
+
+  rss:
+    enabled: true
+    priority: P1
+    feeds:
+      - name: NVIDIA Developer Blog
+        url: https://developer.nvidia.com/blog/feed
+        priority: P0
+      - name: Google DeepMind Blog
+        url: https://deepmind.google/blog/rss.xml
+        priority: P0
+      - name: Google Research Blog
+        url: https://research.google/blog/rss
+        priority: P1
+      - name: Meta AI Blog
+        url: https://ai.meta.com/blog/rss/
+        priority: P1
+      - name: Hugging Face Robotics Blog
+        url: https://huggingface.co/blog/feed.xml
+        priority: P1
+      - name: Unity Blog
+        url: https://unity.com/blog/rss
+        priority: P1
+      - name: Open Robotics Blog
+        url: https://openrobotics.org/blog/rss.xml
+        priority: P1
+    timeout_seconds: 15
+    max_entries_per_feed: 10
+
+  web:                 # Phase 4+ 预留：通用网页采集
+    enabled: false
+    pages: []
+
+  engineering_machinery:
+    enabled: true
+    priority: P0
+    # 该线关注产品趋势而非纯技术趋势
+    companies:
+      - Applied Intuition
+      - Caterpillar
+      - Komatsu
+      - Volvo CE
+      - John Deere
+      - SafeAI
+      - Built Robotics
+      - Hexagon
+      - Siemens
+      - Ansys
+      - Altair
+    keywords:
+      - autonomous construction
+      - construction simulation
+      - autonomous mining
+      - heavy equipment simulation
+      - excavator simulation
+      - loader simulation
+      - forklift simulation
+      - SIL
+      - HIL
+      - digital twin construction

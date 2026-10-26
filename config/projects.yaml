@@ -1,0 +1,82 @@
+# 内部关注项目画像（Internal Relevance 评分依据，Phase 2 起使用）
+# 新增业务（叉车 / 装载机 / 遥操作…）只需在此追加项目与兴趣词
+
+projects:
+  funlab:
+    description: >
+      Robot learning simulation framework.
+    interests:
+      - physics backend
+      - mujoco
+      - newton
+      - vector simulation
+      - reinforcement learning
+      - isaac lab
+
+  real2sim:
+    description: >
+      Real-to-Sim 资产与场景生成链路（含系统辨识 / 物理参数估计）。
+    interests:
+      - real2sim
+      - reconstruction
+      - gaussian splatting
+      - simready
+      - collision generation
+      - usd
+      - urdf
+      - physics parameter estimation
+      - system identification
+      - system-id
+      - parameter estimation
+      - dynamics identification
+      - contact parameter
+
+  simulation_platform:
+    description: >
+      仿真平台技术栈选型与能力建设（对标 Isaac Sim 生态：
+      USD / Omniverse / PhysX / Warp / RTX、SimReady 资产管线与合成数据）。
+    interests:
+      - isaac sim
+      - isaac lab
+      - omniverse
+      - usd
+      - physx
+      - warp
+      - kit
+      - replicator
+      - synthetic data
+      - simready
+      - rtx
+      - mujoco
+      - mjx
+      - newton
+      - genesis
+      - sapien
+      - maniskill
+      - gazebo
+      - unity
+      - digital twin
+
+  engineering_machinery:
+    description: >
+      叉车 / 装载机 / 挖掘机 / 矿山等工程机械仿真与 SIL/HIL。
+    interests:
+      - forklift
+      - loader
+      - excavator
+      - mining
+      - construction equipment
+      - sil
+      - hil
+      - autonomous machinery
+
+  robot_learning:
+    description: >
+      Robot learning 算法与训练基础设施。
+    interests:
+      - reinforcement learning
+      - imitation learning
+      - policy learning
+      - world model
+      - sim2real
+      - domain randomization

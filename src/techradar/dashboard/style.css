@@ -1,0 +1,175 @@
+/* Simulation Tech Radar — 雷达工作台样式
+   视觉语言取自雷达/示波器/航电仪表：深空底、示波青信号色、琥珀告警色、
+   等宽读数、网格线分层。结构靠对齐与色条，不靠圆角阴影堆叠。 */
+
+:root {
+  --ink: #080d12;
+  --panel: #0e161e;
+  --panel-2: #121d27;
+  --scope: #37e0c8;
+  --scope-dim: #1d8f80;
+  --amber: #ffb454;
+  --grid: #1c2a36;
+  --grid-soft: #16212b;
+  --text: #d5e2ec;
+  --text-dim: #7d95a8;
+  --mono: "IBM Plex Mono", "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
+  --sans: "IBM Plex Sans", "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+}
+
+/* ---------- 画布与排版 ---------- */
+.stApp { background: var(--ink); }
+.block-container { max-width: 1500px; padding: 2.2rem 2.4rem 3rem; }
+html, body, [class*="css"] { font-family: var(--sans); color: var(--text); }
+h1 { font-size: 1.75rem !important; font-weight: 600 !important; letter-spacing: -.4px; padding-top: .2rem !important; color: #eaf3fa; }
+h2 { font-size: 1.12rem !important; font-weight: 600 !important; letter-spacing: -.2px; color: #cfe0ec; }
+h3, h4 { font-size: 1rem !important; font-weight: 600 !important; color: #cfe0ec; }
+p, li, .stMarkdown { line-height: 1.65; }
+
+/* ---------- 侧栏：仪器栏 ---------- */
+[data-testid="stSidebar"] {
+  background: var(--panel);
+  border-right: 1px solid var(--grid);
+}
+[data-testid="stSidebar"] > div:first-child { padding-top: 1.4rem; }
+.brand { font-size: 17px; font-weight: 600; letter-spacing: .2px; padding: 0 0 4px; color: #eaf3fa; }
+.brand b { color: var(--scope); font-size: 20px; margin-right: 7px; }
+.brand small {
+  display: block; font-family: var(--mono); font-size: 9.5px; letter-spacing: 1.6px;
+  color: var(--text-dim); padding: 5px 0 0 27px;
+}
+[data-testid="stSidebar"] [role="radiogroup"] { gap: 2px; margin: 14px 0; }
+[data-testid="stSidebar"] [role="radiogroup"] label {
+  padding: 9px 12px; border-radius: 4px; width: 100%; font-size: 14px;
+  border-left: 2px solid transparent; transition: background .12s, border-color .12s;
+}
+[data-testid="stSidebar"] [role="radiogroup"] label:hover { background: var(--grid-soft); }
+[data-testid="stSidebar"] [role="radiogroup"] label:has(input:checked) {
+  background: #37e0c814; border-left-color: var(--scope); color: var(--scope); font-weight: 600;
+}
+
+/* ---------- 读数条：等宽仪表 ---------- */
+.analysis-strip {
+  display: flex; flex-wrap: wrap; gap: 0; padding: 0 0 26px;
+  font-family: var(--mono); font-size: 12px; color: var(--text-dim);
+}
+.analysis-strip span {
+  padding: 10px 18px 10px 0; margin-right: 18px; background: none; border-radius: 0;
+  border-right: 1px solid var(--grid);
+}
+.analysis-strip span:last-child { border-right: none; }
+.analysis-strip b { display: block; font-size: 21px; font-weight: 500; color: #eaf3fa; margin: 2px 0 0; letter-spacing: -.5px; }
+.analysis-strip span:first-child b { color: var(--scope); }
+.analysis-strip span:nth-child(3) b { color: var(--amber); }
+
+[data-testid="stMetric"] {
+  background: var(--panel); border: 1px solid var(--grid); border-radius: 4px;
+  padding: 14px 16px; margin: 8px 0 10px; border-left: 2px solid var(--scope-dim);
+}
+[data-testid="stMetricValue"] { font-family: var(--mono); font-size: 1.9rem; font-weight: 500; letter-spacing: -1px; color: #eaf3fa; }
+[data-testid="stMetricLabel"] { font-size: 11.5px; letter-spacing: .4px; color: var(--text-dim); }
+
+/* ---------- 信号条目：左侧色条 + 网格分隔 ---------- */
+[data-testid="stVerticalBlockBorderWrapper"] > div {
+  border-radius: 4px !important;
+  border-color: var(--grid) !important;
+  background: var(--panel);
+}
+[data-testid="stVerticalBlockBorderWrapper"] { margin-bottom: 6px; }
+.entry-title { font-size: 17px; font-weight: 600; line-height: 1.5; overflow-wrap: anywhere; padding: 4px 0 8px; color: #eaf3fa; }
+.rating { font-family: var(--mono); text-align: right; font-size: 26px; line-height: 1.1; font-weight: 500; padding: 6px 0; color: var(--text-dim); }
+.rating.strong { color: var(--scope); }
+.rating small { display: block; font-family: var(--sans); font-size: 10px; opacity: .65; font-weight: 400; padding-top: 6px; letter-spacing: .3px; }
+
+/* 信号色条：贴在条目卡片上缘，按信号强度着色（强=青，关注=琥珀，弱=网格色） */
+.signal-accent {
+  height: 2px; border-radius: 1px; margin: 0 0 -9px 0;
+  opacity: .9;
+}
+[data-testid="stMarkdownContainer"]:has(> .signal-accent) { margin-bottom: 0; }
+
+/* 决策行：关联项目 · 建议动作 · 分析状态 */
+.decision-row { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 2px 0 9px; }
+.decision-row > span { font-size: 12px; padding: 2px 8px; border-radius: 3px; }
+.d-project { color: #a78bfa; border: 1px solid #a78bfa44; }
+.d-action { color: var(--amber); border: 1px solid #ffb45444; }
+.d-state { font-family: var(--mono); font-size: 11px !important; color: var(--text-dim); border: 1px solid var(--grid); }
+
+/* 一句话结论 */
+.verdict { font-size: 13.5px; line-height: 1.7; color: #b8cad9; padding: 0 0 8px; }
+
+/* 类型/方向标签：细描边，方角，像仪表标注 */
+.tags { display: flex; flex-wrap: wrap; gap: 5px; margin: 2px 0 8px; }
+.tags span {
+  font-family: var(--mono); font-size: 10.5px; color: var(--text-dim);
+  background: none; border: 1px solid var(--grid); padding: 3px 8px; border-radius: 3px;
+}
+.tags span:first-child { color: var(--scope); border-color: #37e0c840; }
+
+.eyebrow {
+  font-family: var(--mono); font-size: 10.5px; font-weight: 500; letter-spacing: .8px;
+  color: var(--text-dim); padding: 3px 0;
+}
+.eyebrow span { color: inherit; }
+
+/* ---------- 同步状态 ---------- */
+.run-summary {
+  display: flex; align-items: center; flex-wrap: wrap; gap: 6px 12px; padding: 9px 12px;
+  background: var(--panel-2); border: 1px solid var(--grid); border-radius: 4px;
+  font-family: var(--mono); font-size: 11.5px; color: var(--text-dim); min-height: 38px;
+}
+.run-dot { display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--scope); }
+.run-summary.attention { border-color: #ffb45440; }
+.run-summary.attention .run-dot { background: var(--amber); }
+.run-schedule { margin-left: auto; white-space: nowrap; }
+.source-health { display: flex; align-items: center; justify-content: space-between; gap: 8px; font-size: 12.5px; padding-top: 8px; }
+.source-health b { font-family: var(--mono); border-radius: 3px; font-size: 10.5px; padding: 2px 6px; }
+.source-health .healthy { color: var(--scope); border: 1px solid #37e0c840; }
+.source-health .attention { color: var(--amber); border: 1px solid #ffb45440; }
+.source-health .muted { color: var(--text-dim); border: 1px solid var(--grid); }
+
+/* ---------- 控件 ---------- */
+[data-testid="stExpander"] { border-color: var(--grid) !important; border-radius: 4px !important; background: var(--panel-2); }
+.stButton button, .stLinkButton a {
+  border-radius: 4px; border-color: var(--grid); background: var(--panel-2);
+  color: var(--text); font-size: 13px;
+}
+.stButton button:hover, .stLinkButton a:hover { border-color: var(--scope); color: var(--scope); }
+.stButton button[kind="primary"] { background: #37e0c81a; border-color: #37e0c860; color: var(--scope); }
+.stTabs [data-baseweb="tab-list"] { gap: 2px; border-bottom: 1px solid var(--grid); }
+.stTabs [data-baseweb="tab"] { font-size: 13px; color: var(--text-dim); padding: 8px 14px; }
+.stTabs [aria-selected="true"] { color: var(--scope) !important; }
+.stTabs [data-baseweb="tab-highlight"] { background: var(--scope); }
+[data-testid="stDataFrame"] { border: 1px solid var(--grid); border-radius: 4px; }
+input, textarea, [data-baseweb="select"] > div {
+  background: var(--panel-2) !important; border-color: var(--grid) !important;
+  color: var(--text) !important; border-radius: 4px !important;
+}
+code { font-family: var(--mono); font-size: .88em; color: var(--scope); background: #37e0c812; border-radius: 3px; padding: 1px 5px; }
+a { color: var(--scope); }
+
+/* ---------- 响应式 ---------- */
+@media (max-width: 768px) {
+  .block-container { padding: 3.4rem 1rem 2.5rem; }
+  [data-testid="stHorizontalBlock"]:has([data-testid="stMetric"]) { flex-wrap: wrap; gap: .6rem; }
+  [data-testid="stHorizontalBlock"]:has([data-testid="stMetric"]) > [data-testid="stColumn"] {
+    flex: 1 1 calc(50% - .6rem); min-width: calc(50% - .6rem); width: calc(50% - .6rem);
+  }
+  h1 { font-size: 1.35rem !important; }
+  [data-testid="stMetric"] { padding: 11px 12px; margin: 3px 0; }
+  [data-testid="stMetricValue"] { font-size: 1.5rem; }
+  .entry-title { font-size: 15.5px; }
+  .analysis-strip { gap: 0; padding-bottom: 18px; }
+  .analysis-strip span { padding: 8px 12px 8px 0; margin-right: 12px; }
+  .analysis-strip b { font-size: 17px; }
+  .rating { font-size: 21px; }
+  .run-summary { padding: 8px 10px; gap: 5px 9px; }
+  .run-schedule { margin-left: 0; }
+  [data-testid="stHorizontalBlock"]:has(.rating):not(:has([data-testid="stHorizontalBlock"])) { flex-wrap: nowrap; gap: .5rem; }
+  [data-testid="stHorizontalBlock"]:has(.rating):not(:has([data-testid="stHorizontalBlock"])) > [data-testid="stColumn"]:first-child { flex: 1 1 75%; min-width: 0; }
+  [data-testid="stHorizontalBlock"]:has(.rating):not(:has([data-testid="stHorizontalBlock"])) > [data-testid="stColumn"]:last-child { flex: 0 0 60px; min-width: 60px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+}

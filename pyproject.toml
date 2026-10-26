@@ -1,0 +1,44 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "simulation-tech-radar"
+version = "0.1.0"
+description = "Simulation Tech Radar — 机器人仿真领域自动技术情报采集与分析平台（Phase 1 骨架）"
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+authors = [{ name = "Simulation Tech Radar Team" }]
+keywords = ["simulation", "robotics", "real2sim", "tech-radar", "intelligence"]
+dependencies = [
+    "PyYAML>=6.0",
+    "requests>=2.31",
+    "feedparser>=6.0",
+    "python-dotenv>=1.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.4",
+    "pytest-cov>=4.1",
+]
+dashboard = [
+    "streamlit>=1.37",
+]
+
+[project.scripts]
+techradar = "techradar.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+"techradar.dashboard" = ["*.css", "*.js"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+
+[tool.coverage.run]
+source = ["techradar"]
